@@ -61,6 +61,7 @@ Tenemos que pasar el archivo **plugins-nagios.tar.gz** a la máquina que vamos a
 ```bash
 sudo apt-get update
 sudo apt-get install -y autoconf gcc libc6 libmcrypt-dev make libssl-dev wget bc gawk dc build-essential snmp libnet-snmp-perl gettext
+cp plugins-nagios.tar.gz /tmp/plugins-nagios-tar.gz
 cd /tmp
 tar zxf plugins-nagios.tar.gz
 cd /tmp/nagios
@@ -94,9 +95,6 @@ cp ./nrpe.cfg /usr/local/nagios/etc/nrpe.cfg
 cp ./custom_check_mem /usr/local/nagios/libexec/
 chmod 755 /usr/local/nagios/libexec/custom_check_mem
 chown nagios:nagios /usr/local/nagios/libexec/custom_check_mem
-cp ./check_service /usr/local/nagios/libexec/
-chmod 755 /usr/local/nagios/libexec/check_service
-chown nagios:nagios /usr/local/nagios/libexec/check_service
 sudo systemctl start nrpe.service
 ```
 Por último comprobamos si el plugin está funcionando con:
