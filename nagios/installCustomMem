@@ -1,0 +1,2 @@
+chmod 755 /usr/local/nagios/libexec/custom_check_mem
+chown nagios:nagios /usr/local/nagios/libexec/custom_check_mem

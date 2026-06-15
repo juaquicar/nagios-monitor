@@ -1,0 +1,31 @@
+
+-- INSTALL NAGIO PLUGINS --
+
+sudo apt-get update
+sudo apt-get install -y autoconf gcc libc6 libmcrypt-dev make libssl-dev wget bc gawk dc build-essential snmp libnet-snmp-perl gettext
+tar zxf nagios-plugins.tar.gz
+cd /tmp/nagios-plugins-release-2.4.10/
+sudo ./tools/setup
+sudo ./configure
+sudo make
+sudo make install
+
+-- INSTALL NRPE --
+
+tar xvfz ./nrpe-4.1.1.tar.gz
+cd nrpe-4.1.1/
+./configure --enable-command-args --with-ssl-lib=/usr/lib/x86_64-linux-gnu/
+make all
+sudo make install-groups-users
+sudo make install
+sudo make install-config
+sudo make install-init
+systemctl enable nrpe
+cp ./nrpe.cfg /usr/local/nagios/etc/nrpe.cfg
+cp ./custom_check_mem /usr/local/nagios/libexec/
+chmod 755 /usr/local/nagios/libexec/custom_check_mem
+chown nagios:nagios /usr/local/nagios/libexec/custom_check_mem
+sudo systemctl start nrpe.service
+/usr/local/nagios/libexec/check_nrpe -H 127.0.0.1
+
+
